@@ -1,5 +1,5 @@
 # Vancouver Learns To Park
-*An Interactive Visualization of Vancouver Parking Ticket Records*
+*An Interactive Web Visualization of Vancouver Parking Ticket Records*
 
 To view, download the repository and open ./VancouverLearnsToPark.html in the Google Chrome web browser. Alternatively, view the page live at www.AdamBadke.com
 
