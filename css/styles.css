@@ -1,0 +1,215 @@
+html, body
+{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+.button
+{
+  background-color	: #468619; /* Vancouver Green */
+  border			: none;
+  color				: white;
+  padding			: 15px 32px;
+  text-align		: center;
+  text-decoration	: none;
+  display			: inline-block;
+  font-size			: 16px;
+  
+  /* Center the button */
+  position			: relative;
+  left				: 50%;
+  transform			: translateX(-50%);
+}
+
+#mapid
+{
+	/* Percentages here are relative to the parent container (ie. body) */
+	height		: 100%;
+	width		: 100%;
+	
+	padding		: 0px;
+	margin		: auto;
+}
+
+#searchInput
+{
+	width : 100%;
+}
+
+p.checkbox_and_label
+{
+	clear: both;
+	float: none;
+}
+p.checkbox_and_label input 
+{
+	clear		: left;
+	float		: left;
+	margin-left	: 80px;
+}
+p.checkbox_and_label label
+{
+	clear		: left;
+	display		: block;
+	float		: left;
+	margin-left	: 10px;
+	width		: 200px;
+}
+
+.ticketStatusColumn
+{
+	float	: left;
+	width	: 50%;
+}
+  
+  /* Clear floats after the columns */
+.ticketStatusRow:after
+{
+	content	: "";
+	display	: table;
+	clear	: both;
+}
+
+
+/* Map Legend styling: */
+.legend
+{
+	padding: 6px 8px;
+	font: 14px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255, 255, 255, 0.8);
+	line-height: 24px;
+	color: #555;
+}
+
+.legend h4
+{
+	text-align: center;
+	font-size: 16px;
+	margin: 2px 12px 8px;
+	color: #777;
+}
+
+.legend span
+{
+	position: relative;
+	bottom: 3px;
+}
+
+.legend i
+{
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin: 0 8px 0 0;
+	opacity: 0.7;
+}
+
+.legend i.icon
+{
+	background-size: 18px;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+
+/* Period chart styling: */
+.periodChartControl
+{
+	min-width	: 280px;
+	min-height	: 190px;
+}
+
+/* Period chart inner canvas, where the chart is inserted */
+#periodChartCanvas
+{
+	width: 100%;
+	height: 100%;
+
+	background-color: rgba(255, 255, 255, .8);
+}
+
+
+/* Popup chart styling: */
+.popupCanvasDiv, #popupCanvas
+{
+	background-color: transparent;
+}
+
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip
+{
+	background-color: rgba(255, 255, 255, 0.65);
+}
+
+
+.leaflet-popup-pane, .leaflet-popup-content, .leaflet-popup-tip-container, .leaflet-popup
+{
+	background-color: transparent;
+	box-shadow: none;
+}
+
+/* Numeric icon styling: */
+.dot-icon_2849
+{
+	background-image: url("../leaflet/images/dot-icon_2849.png");
+    text-align:center;
+	color:White; 
+	font-size: 18px;
+}
+
+.dot-icon-2x_2849
+{
+	background-image: url("../leaflet/images/dot-icon-2x_2849.png");
+    text-align:center;
+	color:White; 
+	font-size: 32px;
+}
+
+.dot-icon_2952
+{
+	background-image: url("../leaflet/images/dot-icon_2952.png");
+    text-align:center;
+	color:White; 
+	font-size: 18px;
+}
+
+.dot-icon-2x_2952
+{
+	background-image: url("../leaflet/images/dot-icon-2x_2952.png");
+    text-align:center;
+	color:White; 
+	font-size: 32px;
+}
+
+.dot-icon_9344
+{
+	background-image: url("../leaflet/images/dot-icon_9344.png");
+    text-align:center;
+	color:White; 
+	font-size: 18px;
+}
+
+.dot-icon-2x_9344
+{
+	background-image: url("../leaflet/images/dot-icon-2x_9344.png");
+    text-align:center;
+	color:White; 
+	font-size: 32px;
+}
+
+.dot-icon_9978
+{
+	background-image: url("../leaflet/images/dot-icon_9978.png");
+    text-align:center;
+	color:White; 
+	font-size: 18px;
+}
+
+.dot-icon-2x_9978
+{
+	background-image: url("../leaflet/images/dot-icon-2x_9978.png");
+    text-align:center;
+	color:White; 
+	font-size: 32px;
+}

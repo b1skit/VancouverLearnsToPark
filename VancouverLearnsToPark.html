@@ -1,0 +1,222 @@
+<!-- "Vancouver Learns to Park" - SFU CMPT 767 Term Project, by Adam Badke -->
+<!-- To view, open this file in the Google Chrome browser -->
+
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Visualizing Vancouver Parking Tickets</title>
+	
+	<meta name="description" content="CMPT 767 Visualization Term Project">
+	<meta name="author" content="Adam Badke">
+
+
+
+	<!-- OPEN SOURCE LIBRARIES: -->
+
+	<!-- Leaflet setup: -->
+	<link rel="stylesheet" href="leaflet/leaflet.css" />
+	<script src="leaflet/leaflet.js"></script>
+
+	<!-- Note: This needs to be included AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+	
+	<!-- Leaflet sidebar v2 setup: -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="leaflet-sidebar-v2-master/css/leaflet-sidebar.css" />
+	<script src="leaflet-sidebar-v2-master/js/leaflet-sidebar.js"></script>
+
+
+	<!-- Lightpick date picker setup: -->
+	<link rel="stylesheet" type="text/css" href="Lightpick-master/css/lightpick.css">
+	<script src="Lightpick-master/moment.js"></script>
+	<script src="Lightpick-master/lightpick.js"></script>
+	
+	<!-- Heatmap: -->
+	<script src="heatmap/leaflet-heat.js"></script>
+
+	<!-- Loading spinner: -->
+	<script src="spin/spin.js" charset="utf-8"></script>
+	<script src="spin/dist/spin.min.js" charset="utf-8"></script>
+	<script src="spin/leaflet.spin.min.js" charset="utf-8"></script>
+
+	<!-- Chart.js -->
+	<script src="chartjs/Chart.js"></script>
+
+
+
+	<!-- CUSTOM CODE WRITTEN FOR THIS PROJECT: -->
+	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	<script src="custom/utilities.js"></script>
+	<!-- <script src="custom/visualization.js"></script> -->
+	
+</head>
+
+<body>
+	<!-- The UI sidebar is implemented using a modified version of the demonstration code included with Leaflet v2 sidebar -->
+	<!-- Define the sidebar content via HTML markup -->
+	<div id="sidebar" class="leaflet-sidebar collapsed">
+
+		<!-- nav tabs -->
+		<div class="leaflet-sidebar-tabs">
+			<!-- top aligned tabs -->
+			<ul role="tablist">
+				<li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
+			</ul>
+		</div>
+
+		<!-- panel content -->
+		<div class="leaflet-sidebar-content">
+			<div class="leaflet-sidebar-pane" id="home">
+				<h1 class="leaflet-sidebar-header">
+					Database Query & Filtering:
+					<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+				</h1>
+				
+				<!-- Database query UI panel: -->
+				<div>
+					<h2>1) Select Parking Ticket Database to Query:</h2>
+					
+					<form action="">
+						<input type="radio" name="targetDB" value = "2011-2013" onchange="HandleParkingTicketRadioToggle(0)">Parking tickets 2011-2013<br>
+						<input type="radio" name="targetDB" value = "2014-2016" onchange="HandleParkingTicketRadioToggle(1)">Parking tickets 2014-2016<br>
+						<input type="radio" name="targetDB" value = "2017-2019" onchange="HandleParkingTicketRadioToggle(2)" checked="checked">Parking tickets 2017-2019<br>
+					</form>
+
+					<hr>
+
+					<h2>2) Select Date/Range:</h2>
+
+					<input type="text" id="datepicker"/>
+
+					<hr>
+
+					<h2>3) Optional: Specify Street</h2>
+					
+					<h3>Restrict query to a specific 100-block or street:</h3>
+					<form>
+						<input type="text" id="searchInput" value = "" placeholder="Eg. 200 Carrall St, or, Robson St, etc">
+					</form>
+
+					<hr>
+
+					<div>
+						<button class="button" name="visualizeButton" onclick="VisualizeButton()">Visualize!</button>
+					</div>
+
+					<hr>
+
+					<h2>4) Filter Visible Data:</h2>
+
+					<h3>Weekdays:</h3>
+					
+					<p class="checkbox_and_label"></p>
+						<input type="checkbox" id="monCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">M</label>
+
+						<input type="checkbox" id="tueCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">T</label>
+
+						<input type="checkbox" id="wedCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">W</label>
+
+						<input type="checkbox" id="thuCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">R</label>
+
+						<input type="checkbox" id="friCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">F</label>
+
+						<input type="checkbox" id="satCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">S</label>
+
+						<input type="checkbox" id="sunCheckbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">U</label>
+
+
+					<h3>Filter by Bylaw:</h3>
+
+					<p class="checkbox_and_label"></p>
+						<input type="checkbox" id="2849Checkbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">2849 - Street and Traffic Bylaw</label>
+
+					<p class="checkbox_and_label"></p>
+						<input type="checkbox" id="2952Checkbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">2952 - Parking Meter Bylaw</label>
+
+					<p class="checkbox_and_label"></p>
+						<input type="checkbox" id="9344Checkbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">9344 - Motor Vehicle Noise and Emission Abatement Bylaw</label>
+
+					<p class="checkbox_and_label"></p>
+						<input type="checkbox" id="9978Checkbox" onclick="DrawAllLayers()" checked="checked">
+						<label class="uiCheckbox">9978 - Granville Mall Bylaw</label>
+
+					
+					<!-- Ticket status configuration-->
+					<h3>Filter Ticket Status:</h3>
+					
+					<div class="ticketStatusRow">
+						<div class="ticketStatusColumn">
+							<p class="checkbox_and_label"></p>
+								<input type="checkbox" id="ISCheckbox" onclick="DrawAllLayers()" checked="checked">
+								<label class="uiCheckbox">IS (Issued)</label>
+
+							<p class="checkbox_and_label"></p>
+								<input type="checkbox" id="WRCheckbox" onclick="DrawAllLayers()" checked="checked">
+								<label class="uiCheckbox">WR (Warning)</label>
+							<p class="checkbox_and_label"></p>
+								<input type="checkbox" id="RACheckbox" onclick="DrawAllLayers()" checked="checked">
+								<label class="uiCheckbox">RA (Cancelled due to Paid by Phone)</label>
+
+							
+						</div>
+						<div class="ticketStatusColumn">
+							<p class="checkbox_and_label"></p>
+								<input type="checkbox" id="VACheckbox" onclick="DrawAllLayers()" checked="checked">
+								<label class="uiCheckbox">VA (Void)</label>
+
+							<p class="checkbox_and_label"></p>
+								<input type="checkbox" id="VSCheckbox" onclick="DrawAllLayers()" checked="checked">
+								<label class="uiCheckbox">VS (Auto-void)</label>
+
+							<p class="checkbox_and_label"></p>
+								<input type="checkbox" id="VRCheckbox" onclick="DrawAllLayers()" checked="checked">
+								<label class="uiCheckbox">VR (Void Request)</label>
+
+						</div>
+					</div>
+				</div>				
+			</div>
+
+			<div class="leaflet-sidebar-pane" id="autopan">
+				<h1 class="leaflet-sidebar-header">
+					autopan
+					<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+				</h1>
+				<p>
+					<code>Leaflet.control.sidebar({ autopan: true })</code>
+					makes shure that the map center always stays visible.
+				</p>
+				<p>
+					The autopan behviour is responsive as well.
+					Try opening and closing the sidebar from this pane!
+				</p>
+			</div>
+
+			<div class="leaflet-sidebar-pane" id="messages">
+				<h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- This div is used to position our map on the page. It must be placed before any Leaflet scripts. Map size is defined in the ./css/styles.css file -->
+	<div id="mapid"></div>
+
+	<!-- Load the main visualization script (must happen AFTER leaflet is initialized...) -->
+	<script src="custom/visualization.js"></script>
+
+</body>
+</html>
