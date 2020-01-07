@@ -1,7 +1,7 @@
 # Vancouver Learns To Park
 *An Interactive Web Visualization of Vancouver Parking Ticket Records*
 
-This web app was created as a term project for SFU's CMPT 767 Visualization course. To view, download the repository and open ./VancouverLearnsToPark.html in the Google Chrome web browser. Alternatively, view the page live at www.AdamBadke.com
+This web app was created as a term project for SFU's CMPT 767 *Visualization* course. To view, download the repository and open ./VancouverLearnsToPark.html in the Google Chrome web browser. Alternatively, view the page live at www.AdamBadke.com
 
 *Note: This project was developed and tested using the Google Chrome browser (Windows 10). Due to development time constraints, Microsoft's Internet Explorer browsers are not supported, and results are likely to vary if viewed in Microsoft Edge or Mozilla Firefox.*
 
