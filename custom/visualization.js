@@ -2,14 +2,16 @@
 var theMap = L.map('mapid').setView([49.282252, -123.124439], 13);
 		
 // Add a MapBox streets tile layer to the map:
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution	: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    minZoom		: 14,
-    maxZoom		: 18,	// Snapped to MAX_LOAD_ZOOM when VisualizeButton() is called
-    zoomControl	: true,
-    id			: 'mapbox.streets',
-    accessToken	: 'pk.eyJ1IjoiYjFza2l0IiwiYSI6ImNrMG9ubHd4bjBjcHAzbWp3d2NwdWdoNDYifQ.gopNAShvK6AlH1_qJaWo5w' // NOTE: This is my personal access token
-    }).addTo(theMap);
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	attribution	: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+	tileSize	: 512,
+	minZoom		: 14,
+	maxZoom		: 18,	// Snapped to MAX_LOAD_ZOOM when VisualizeButton() is called
+	zoomControl	: true,
+	zoomOffset	: -1,
+	id			: 'mapbox/streets-v11',
+	accessToken	: 'pk.eyJ1IjoiYjFza2l0IiwiYSI6ImNrMG9ubHd4bjBjcHAzbWp3d2NwdWdoNDYifQ.gopNAShvK6AlH1_qJaWo5w'
+}).addTo(theMap);
 
 theMap.zoomControl.setPosition('bottomright'); // Position the zoom controls in the same place as Google maps
 
