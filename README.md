@@ -35,3 +35,5 @@ Open-source libraries:
 \./Lightpick-master/				*- Lightpick: "Javascript date range picker" - https://wakirin.github.io/Lightpick/*
 
 \./spin/							*- Leaflet.Spin: "Show a spinner on the map using Spin.js" - https://github.com/makinacorpus/Leaflet.Spin*
+
+© 2020 Adam Badke. All rights reserved.
